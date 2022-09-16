@@ -1,0 +1,74 @@
+
+<div class="container-fluid">
+    <div class="row bg-padrao ">
+      <div class="container d-flex align-items-center">
+        <div class="col-md-6 d-flex flex-column">
+          <p class="texto text-light font-weight-bold text-center">Bem vindo ao <br> <span class="destaque">blog pessoal</span></p>
+          <p class="text-white-50 text-center h5">Digite uma mensagem bem legal</p>
+  
+          <div class="row justify-content-around mt-4">
+            <button class="btn btn-outline-light px-5" data-toggle="modal" data-target="#exampleModal">Nova Postagem</button>
+            <a class="btn btn-light px-5" href="#postagens">Todas as postagens</a>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <img src="https://i.imgur.com/By8A4h8.jpeg" alt="" class="img-fluid">
+        </div>
+      </div>
+    </div>
+  
+    <div class="row my-4">
+      <div class="container d-flex flex-column" id="postagens">
+        <ul class="nav nav-tabs d-flex justify-content-center" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link active text-dark font-weight-bold" id="todasPostagens-tab" data-toggle="tab" href="#todasPostagens" role="tab" aria-controls="todasPostagens" aria-selected="true">Todas as postagens</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a (click)="buscarUsuario()" class="nav-link text-dark font-weight-bold" id="minhasPostagens-tab" data-toggle="tab" href="#minhasPostagens" role="tab" aria-controls="minhasPostagens" aria-selected="false">Minhas Postagens</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a class="nav-link text-dark font-weight-bold" id="postagensTema-tab" data-toggle="tab" href="#postagensTema" role="tab" aria-controls="postagensTema" aria-selected="false">Postagens por tema</a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          
+          <div class="tab-pane fade show active" id="todasPostagens" role="tabpanel" aria-labelledby="todasPostagens-tab">
+            <div class="row">
+              <div class="col-md-4" *ngFor="let postagem of listaPostagens">
+                <p>{{postagem.titulo}}</p>
+                <p>{{postagem.texto}}</p>
+                <p>{{postagem.tema.descricao}}</p>
+                <p>{{postagem.usuario.nome}}</p>
+              </div>
+            </div>
+          </div>
+         
+          <div class="tab-pane fade" id="minhasPostagens" role="tabpanel" aria-labelledby="minhasPostagens-tab">
+            <div class="row">
+              <div class="col-md-3" *ngFor="let postagem of usuario.postagem">
+                <p>{{usuario.nome}}</p>
+                <p>{{postagem.titulo}}</p>
+                <a [routerLink]="['/postagemEdit', postagem.id]">Editar</a>
+                <a [routerLink]="['/postagemDelete', postagem.id]">Apagar</a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="tab-pane fade" id="postagensTema" role="tabpanel" aria-labelledby="postagensTema-tab">
+            <div class="row flex-column" *ngFor="let tema of listaTemas">
+              <h3>{{tema.descricao}}</h3>
+              <div class="row">
+                <div class="col-md-4" *ngFor="let postagem of tema.postagem">
+                  <p>{{postagem.titulo}}</p>
+                  <p>{{postagem.texto}}</p>
+                  <p>{{postagem.data}}</p>
+                  <p>{{postagem.usuario.nome}}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
